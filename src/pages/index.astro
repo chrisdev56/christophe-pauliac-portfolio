@@ -1,0 +1,147 @@
+---
+import Base from "../layouts/Base.astro";
+import { profil, projets, contacts } from "../data/cv.js";
+---
+
+<Base>
+  <!-- HERO : la signature = la passion du code, racontée à la première personne -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow">Développeur &amp; testeur logiciel · {profil.lieu}</p>
+        <h1>
+          Salut, moi c'est <span class="hl">Christophe</span>.<br />
+          Je construis des logiciels, <span class="hl">proprement</span>.
+        </h1>
+        <p class="lede">{profil.pitch}</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="/cv">Voir mon CV</a>
+          <a class="btn btn-ghost" href={contacts.linkedin} target="_blank" rel="noopener"
+            >LinkedIn ↗</a
+          >
+        </div>
+      </div>
+
+      <!-- Carte "console" : clin d'œil au code, sobre -->
+      <aside class="hero-card" aria-hidden="true">
+        <div class="card-bar">
+          <span></span><span></span><span></span>
+        </div>
+        <pre class="card-code"><code><span class="c-key">const</span> christophe = &#123;
+  <span class="c-prop">role</span>: <span class="c-str">"dev + testeur"</span>,
+  <span class="c-prop">depuis</span>: <span class="c-str">"le lycée"</span>,
+  <span class="c-prop">premierProjet</span>: <span class="c-str">"Snake sur calculatrice"</span>,
+  <span class="c-prop">certif</span>: <span class="c-str">"AZ-204 Azure"</span>,
+  <span class="c-prop">approche</span>: <span class="c-str">"comprendre, puis construire"</span>,
+&#125;;</code></pre>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PROJETS -->
+  <section class="wrap section">
+    <header class="section-head">
+      <p class="eyebrow">Ce sur quoi je travaille</p>
+      <h2>Projets &amp; réalisations</h2>
+      <p class="section-sub">
+        Chez AG2L, je participe aux tests et développements de logiciels de gestion à
+        l'affaire, du desktop C# à l'application web Java / React.
+      </p>
+    </header>
+
+    <div class="cards">
+      {
+        projets.map((p) => (
+          <article class="card">
+            <h3 class="card-title">{p.titre}</h3>
+            <p class="card-text">{p.resume}</p>
+            <ul class="tags">
+              {p.stack.map((s) => (
+                <li class="tag">{s}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin: 0 0 14px;
+  }
+
+  /* Hero */
+  .hero { padding: 72px 0 40px; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .hero h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 800; margin: 0 0 20px; }
+  .hl { color: var(--primary-text); }
+  .lede { font-size: 1.12rem; color: var(--muted); max-width: 46ch; margin: 0 0 28px; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 999px; font-weight: 700; font-size: 0.98rem;
+    text-decoration: none; border: 1px solid transparent; transition: transform 0.12s, box-shadow 0.12s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--primary); color: #fff; box-shadow: var(--shadow); }
+  .btn-primary:hover { background: var(--primary-2); }
+  .btn-ghost { background: var(--surface); color: var(--heading); border-color: var(--border); }
+  .btn-ghost:hover { border-color: var(--primary); color: var(--primary-text); }
+
+  /* Carte code */
+  .hero-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    box-shadow: var(--shadow-lg); overflow: hidden;
+  }
+  .card-bar { display: flex; gap: 7px; padding: 14px 16px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
+  .card-bar span { width: 11px; height: 11px; border-radius: 50%; background: var(--border); }
+  .card-bar span:first-child { background: var(--primary); }
+  .card-code {
+    margin: 0; padding: 22px; font-family: var(--mono); font-size: 0.9rem; line-height: 1.7;
+    color: var(--text); overflow-x: auto;
+  }
+  .c-key { color: var(--accent-text); font-weight: 600; }
+  .c-prop { color: var(--primary-text); }
+  .c-str { color: var(--muted); }
+
+  /* Sections */
+  .section { padding-top: 56px; }
+  .section-head { max-width: 60ch; margin-bottom: 34px; }
+  .section-head h2 { font-size: clamp(1.6rem, 3.4vw, 2.2rem); margin: 0 0 12px; }
+  .section-sub { color: var(--muted); margin: 0; }
+
+  /* Cartes projets */
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 24px; box-shadow: var(--shadow-sm); transition: transform 0.14s, box-shadow 0.14s, border-color 0.14s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); }
+  .card-title { margin: 0 0 8px; font-size: 1.18rem; }
+  .card-text { margin: 0 0 16px; color: var(--muted); }
+  .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 7px; margin: 0; padding: 0; }
+  .tag {
+    font-family: var(--mono); font-size: 0.76rem; padding: 4px 10px; border-radius: 999px;
+    background: color-mix(in srgb, var(--primary) 10%, transparent); color: var(--primary-text);
+    border: 1px solid color-mix(in srgb, var(--primary) 24%, transparent);
+  }
+
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+    .hero-card { order: -1; }
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>

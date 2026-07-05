@@ -1,0 +1,202 @@
+---
+import Base from "../layouts/Base.astro";
+import {
+  profil,
+  contacts,
+  competences,
+  langues,
+  atouts,
+  interets,
+  experiences,
+  formations,
+} from "../data/cv.js";
+---
+
+<Base title="CV" description={`CV de ${profil.nom} : parcours, compétences et formations.`}>
+  <section class="wrap cv">
+    <header class="cv-head">
+      <div>
+        <p class="eyebrow">Curriculum vitæ</p>
+        <h1>{profil.nom}</h1>
+        <p class="cv-role">{profil.titre} · {profil.experienceAnnees} ans d'expérience</p>
+        <p class="cv-meta">{profil.lieu} · {profil.permis}</p>
+      </div>
+      <a class="btn-dl" href={contacts.cvPdf} target="_blank" rel="noopener">
+        ↓ Télécharger le CV (PDF)
+      </a>
+    </header>
+
+    <div class="cv-grid">
+      <!-- Colonne latérale -->
+      <aside class="cv-aside">
+        <section class="block">
+          <h2 class="block-title">Compétences</h2>
+          {
+            competences.map((c) => (
+              <div class="skill-group">
+                <h3 class="skill-h">{c.groupe}</h3>
+                <ul class="chips">
+                  {c.items.map((i) => (
+                    <li class="chip">{i}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </section>
+
+        <section class="block">
+          <h2 class="block-title">Langues</h2>
+          <ul class="plain">
+            {
+              langues.map((l) => (
+                <li>
+                  <strong>{l.langue}</strong> — {l.niveau}
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <section class="block">
+          <h2 class="block-title">Atouts</h2>
+          <ul class="chips">
+            {atouts.map((a) => <li class="chip">{a}</li>)}
+          </ul>
+        </section>
+
+        <section class="block">
+          <h2 class="block-title">Centres d'intérêt</h2>
+          {
+            Object.entries(interets).map(([groupe, items]) => (
+              <div class="skill-group">
+                <h3 class="skill-h">{groupe}</h3>
+                <ul class="plain">
+                  {items.map((i) => (
+                    <li>{i}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </section>
+      </aside>
+
+      <!-- Colonne principale -->
+      <div class="cv-main">
+        <section class="block">
+          <h2 class="block-title">Expériences professionnelles</h2>
+          <ol class="timeline">
+            {
+              experiences.map((e) => (
+                <li class="tl-item">
+                  <div class="tl-when">{e.periode}</div>
+                  <div class="tl-body">
+                    <h3 class="tl-role">
+                      {e.poste}
+                      {e.lieu && <span class="tl-org"> · {e.lieu}</span>}
+                    </h3>
+                    <ul class="plain">
+                      {e.points.map((p) => (
+                        <li>{p}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+        </section>
+
+        <section class="block">
+          <h2 class="block-title">Diplômes &amp; formations</h2>
+          <ul class="formations">
+            {
+              formations.map((f) => (
+                <li>
+                  <span class="f-year">{f.annee}</span>
+                  <span class="f-label">{f.intitule}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .eyebrow {
+    text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.74rem;
+    font-weight: 700; color: var(--primary-text); margin: 0 0 12px;
+  }
+
+  .cv { padding-top: 48px; }
+  .cv-head {
+    display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: flex-end;
+    padding-bottom: 28px; margin-bottom: 32px; border-bottom: 1px solid var(--border);
+  }
+  .cv-head h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0 0 8px; }
+  .cv-role { margin: 0; font-weight: 600; color: var(--heading); }
+  .cv-meta { margin: 4px 0 0; color: var(--muted); font-size: 0.92rem; }
+
+  .btn-dl {
+    display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+    padding: 11px 20px; border-radius: 999px; font-weight: 700; text-decoration: none;
+    background: var(--primary); color: #fff; box-shadow: var(--shadow); transition: background 0.12s, transform 0.12s;
+  }
+  .btn-dl:hover { background: var(--primary-2); transform: translateY(-1px); }
+
+  .cv-grid { display: grid; grid-template-columns: 320px 1fr; gap: 40px; align-items: start; }
+
+  .block { margin-bottom: 34px; }
+  .block-title {
+    font-size: 1.15rem; margin: 0 0 16px; padding-bottom: 8px;
+    border-bottom: 2px solid color-mix(in srgb, var(--primary) 35%, transparent);
+    display: inline-block;
+  }
+
+  .skill-group { margin-bottom: 16px; }
+  .skill-h { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 0 0 8px; }
+
+  .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 7px; margin: 0; padding: 0; }
+  .chip {
+    font-size: 0.82rem; padding: 5px 11px; border-radius: 999px;
+    background: var(--surface-2); color: var(--heading); border: 1px solid var(--border);
+  }
+
+  .plain { margin: 0; padding-left: 18px; color: var(--text); }
+  .plain li { margin-bottom: 5px; }
+  .plain li::marker { color: var(--primary); }
+
+  /* Timeline expériences — layout robuste, pas de superposition */
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .tl-item {
+    display: grid; grid-template-columns: 130px 1fr; gap: 18px;
+    padding: 0 0 24px 0; position: relative;
+  }
+  .tl-item:not(:last-child) { border-left: 2px solid var(--border); margin-left: 6px; padding-left: 22px; }
+  .tl-item:not(:last-child)::before {
+    content: ""; position: absolute; left: -7px; top: 4px; width: 12px; height: 12px;
+    border-radius: 50%; background: var(--primary); border: 3px solid var(--bg);
+  }
+  .tl-when { font-family: var(--mono); font-size: 0.82rem; color: var(--primary-text); font-weight: 600; padding-top: 2px; }
+  .tl-role { margin: 0 0 8px; font-size: 1.05rem; }
+  .tl-org { color: var(--muted); font-weight: 500; }
+
+  .formations { list-style: none; margin: 0; padding: 0; }
+  .formations li { display: grid; grid-template-columns: 64px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .formations li:last-child { border-bottom: none; }
+  .f-year { font-family: var(--mono); font-weight: 700; color: var(--primary-text); }
+  .f-label { color: var(--text); }
+
+  @media (max-width: 900px) {
+    .cv-grid { grid-template-columns: 1fr; gap: 8px; }
+  }
+  @media (max-width: 520px) {
+    .tl-item { grid-template-columns: 1fr; gap: 4px; }
+    .tl-item:not(:last-child) { padding-left: 20px; }
+    .formations li { grid-template-columns: 54px 1fr; }
+  }
+</style>

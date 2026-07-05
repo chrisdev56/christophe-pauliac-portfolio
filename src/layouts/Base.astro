@@ -1,0 +1,255 @@
+---
+import { profil, contacts } from "../data/cv.js";
+
+const { title, description } = Astro.props;
+const pageTitle = title
+  ? `${title} — ${profil.nom}`
+  : `${profil.nom} — ${profil.titre}`;
+const pageDesc =
+  description ??
+  `Portfolio de ${profil.nom}, ${profil.titre.toLowerCase()}. Parcours, compétences et projets.`;
+
+const nav = [
+  { href: "/", label: "Accueil" },
+  { href: "/cv", label: "CV" },
+];
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+    <meta name="author" content={profil.nom} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#f97316" />
+    <script is:inline>
+      // Applique le thème avant le rendu pour éviter le flash
+      const t = localStorage.getItem("theme");
+      if (t === "dark" || (!t && matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Aller au contenu</a>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a href="/" class="brand" aria-label="Accueil">
+          <span class="brand-mark">CP</span>
+          <span class="brand-name">Christophe&nbsp;Pauliac</span>
+        </a>
+        <nav class="nav" aria-label="Navigation principale">
+          {
+            nav.map((n) => (
+              <a href={n.href} class:list={["nav-link", { active: path === n.href }]}>
+                {n.label}
+              </a>
+            ))
+          }
+        </nav>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="Changer de thème"
+          title="Thème clair / sombre"
+        >
+          <span class="theme-icon sun" aria-hidden="true">☀</span>
+          <span class="theme-icon moon" aria-hidden="true">☾</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <div>
+          <p class="footer-name">{profil.nom}</p>
+          <p class="footer-role">{profil.titre}</p>
+        </div>
+        <div class="footer-links">
+          <a
+            class="footer-link"
+            id="email-link"
+            data-user={contacts.emailUser}
+            data-domain={contacts.emailDomain}
+            href="#"
+            rel="nofollow">Écrire un email</a
+          >
+          <a class="footer-link" href={contacts.linkedin} target="_blank" rel="noopener"
+            >LinkedIn</a
+          >
+          {
+            contacts.github && (
+              <a class="footer-link" href={contacts.github} target="_blank" rel="noopener">
+                GitHub
+              </a>
+            )
+          }
+        </div>
+      </div>
+      <p class="footer-copy wrap">© {new Date().getFullYear()} {profil.nom}</p>
+    </footer>
+
+    <script>
+      // Toggle thème
+      const btn = document.getElementById("theme-toggle");
+      btn?.addEventListener("click", () => {
+        const isDark = document.documentElement.dataset.theme === "dark";
+        if (isDark) {
+          delete document.documentElement.dataset.theme;
+          localStorage.setItem("theme", "light");
+        } else {
+          document.documentElement.dataset.theme = "dark";
+          localStorage.setItem("theme", "dark");
+        }
+      });
+
+      // Email assemblé en JS → invisible pour les bots dans le HTML source
+      const el = document.getElementById("email-link");
+      if (el) {
+        const addr = `${el.dataset.user}@${el.dataset.domain}`;
+        el.setAttribute("href", `mailto:${addr}`);
+        el.textContent = addr;
+      }
+    </script>
+
+    <style is:global>
+      :root {
+        --bg: #ffffff;
+        --bg-soft: #f6f8fa;
+        --surface: #ffffff;
+        --surface-2: #f1f4f7;
+        --border: #e5e9ef;
+        --text: #0f1722;
+        --heading: #0b1220;
+        --muted: #4a5a6e;
+        --primary: #f97316;
+        --primary-2: #ea670d;
+        --primary-text: #c2560a;
+        --accent: #1597a0;
+        --accent-text: #0e7a82;
+        --ok: #16a34a;
+        --radius: 14px;
+        --radius-sm: 10px;
+        --maxw: 1120px;
+        --shadow-sm: 0 1px 2px rgba(15, 23, 34, 0.04), 0 1px 3px rgba(15, 23, 34, 0.06);
+        --shadow: 0 10px 30px rgba(15, 23, 34, 0.08);
+        --shadow-lg: 0 20px 50px rgba(15, 23, 34, 0.12);
+        --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --mono: ui-monospace, "Cascadia Code", "Fira Code", Consolas, monospace;
+      }
+
+      :root[data-theme="dark"] {
+        --bg: #0e1116;
+        --bg-soft: #141922;
+        --surface: #161c26;
+        --surface-2: #1c2431;
+        --border: #26303e;
+        --text: #e7ecf3;
+        --heading: #f4f7fb;
+        --muted: #9fb0c4;
+        --primary: #ff8a3d;
+        --primary-2: #f97316;
+        --primary-text: #ff9a55;
+        --accent: #2bb6bf;
+        --accent-text: #4fd0d8;
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--font);
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      h1, h2, h3 { color: var(--heading); line-height: 1.15; letter-spacing: -0.02em; }
+
+      a { color: var(--primary-text); }
+
+      .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: 24px; }
+
+      .skip {
+        position: absolute; left: -9999px; top: 0; z-index: 100;
+        background: var(--primary); color: #fff; padding: 10px 16px; border-radius: 0 0 8px 0;
+      }
+      .skip:focus { left: 0; }
+
+      /* Header */
+      .site-header {
+        position: sticky; top: 0; z-index: 50;
+        background: color-mix(in srgb, var(--bg) 85%, transparent);
+        backdrop-filter: saturate(180%) blur(10px);
+        border-bottom: 1px solid var(--border);
+      }
+      .header-inner { display: flex; align-items: center; gap: 20px; height: 64px; }
+      .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; color: var(--heading); }
+      .brand-mark {
+        display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px;
+        background: var(--primary); color: #fff; font-size: 0.85rem; letter-spacing: 0.02em;
+        box-shadow: var(--shadow-sm);
+      }
+      .brand-name { font-size: 0.98rem; }
+      .nav { margin-left: auto; display: flex; gap: 6px; }
+      .nav-link {
+        text-decoration: none; color: var(--muted); font-weight: 600; font-size: 0.95rem;
+        padding: 8px 14px; border-radius: 999px;
+      }
+      .nav-link:hover { color: var(--heading); background: var(--surface-2); }
+      .nav-link.active { color: var(--primary-text); background: color-mix(in srgb, var(--primary) 12%, transparent); }
+
+      .theme-toggle {
+        display: grid; place-items: center; width: 38px; height: 38px; border-radius: 999px;
+        border: 1px solid var(--border); background: var(--surface); color: var(--heading);
+        cursor: pointer; position: relative;
+      }
+      .theme-toggle:hover { border-color: var(--primary); }
+      .theme-icon { position: absolute; transition: opacity 0.2s, transform 0.2s; }
+      .sun { opacity: 0; transform: scale(0.6) rotate(-40deg); }
+      .moon { opacity: 1; }
+      :root[data-theme="dark"] .sun { opacity: 1; transform: none; }
+      :root[data-theme="dark"] .moon { opacity: 0; transform: scale(0.6); }
+
+      /* Footer */
+      .site-footer { margin-top: 96px; border-top: 1px solid var(--border); background: var(--bg-soft); padding: 40px 0 28px; }
+      .footer-inner { display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center; }
+      .footer-name { margin: 0; font-weight: 800; color: var(--heading); }
+      .footer-role { margin: 2px 0 0; color: var(--muted); font-size: 0.92rem; }
+      .footer-links { display: flex; gap: 8px; flex-wrap: wrap; }
+      .footer-link {
+        text-decoration: none; color: var(--heading); font-weight: 600; font-size: 0.9rem;
+        padding: 8px 14px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface);
+      }
+      .footer-link:hover { border-color: var(--primary); color: var(--primary-text); }
+      .footer-copy { margin: 22px auto 0; color: var(--muted); font-size: 0.82rem; }
+
+      @media (max-width: 560px) {
+        .brand-name { display: none; }
+      }
+    </style>
+  </body>
+</html>
