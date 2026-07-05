@@ -10,8 +10,7 @@ import { profil, projets, contacts } from "../data/cv.js";
       <div class="hero-text">
         <p class="eyebrow">Développeur &amp; testeur logiciel · {profil.lieu}</p>
         <h1>
-          Salut, moi c'est <span class="hl">Christophe</span>.<br />
-          Je construis des logiciels, <span class="hl">proprement</span>.
+          Salut, moi c'est <span class="hl">Christophe</span>.
         </h1>
         <p class="lede">{profil.pitch}</p>
         <div class="hero-cta">
@@ -28,11 +27,14 @@ import { profil, projets, contacts } from "../data/cv.js";
           <span></span><span></span><span></span>
         </div>
         <pre class="card-code"><code><span class="c-key">const</span> christophe = &#123;
-  <span class="c-prop">role</span>: <span class="c-str">"dev + testeur"</span>,
+  <span class="c-prop">role</span>: <span class="c-str">"développeur + testeur logiciel"</span>,
   <span class="c-prop">depuis</span>: <span class="c-str">"le lycée"</span>,
-  <span class="c-prop">premierProjet</span>: <span class="c-str">"Snake sur calculatrice"</span>,
-  <span class="c-prop">certif</span>: <span class="c-str">"AZ-204 Azure"</span>,
-  <span class="c-prop">approche</span>: <span class="c-str">"comprendre, puis construire"</span>,
+  <span class="c-prop">premierProjet</span>: <span class="c-str">"un Snake sur ma calculatrice"</span>,
+  <span class="c-prop">aujourdhui</span>: <span class="c-str">"logiciels de gestion métier"</span>,
+  <span class="c-prop">stack</span>: [<span class="c-str">"Java"</span>, <span class="c-str">"C#"</span>, <span class="c-str">"React"</span>, <span class="c-str">"SQL"</span>],
+  <span class="c-prop">test</span>: [<span class="c-str">"JUnit"</span>, <span class="c-str">"NUnit"</span>, <span class="c-str">"automatisation"</span>],
+  <span class="c-prop">bonus</span>: <span class="c-str">"fabrique aussi (3D, drone, CNC)"</span>,
+  <span class="c-prop">devise</span>: <span class="c-str">"comprendre à fond, puis construire propre"</span>,
 &#125;;</code></pre>
       </aside>
     </div>
@@ -81,11 +83,12 @@ import { profil, projets, contacts } from "../data/cv.js";
   .hero { padding: 72px 0 40px; }
   .hero-grid {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 0.85fr 1.15fr;
     gap: 48px;
     align-items: center;
   }
-  .hero h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 800; margin: 0 0 20px; }
+  .hero h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 800; margin: 0 0 12px; }
+  .hero-tagline { font-size: clamp(1.15rem, 2.4vw, 1.5rem); font-weight: 600; color: var(--heading); margin: 0 0 22px; }
   .hl { color: var(--primary-text); }
   .lede { font-size: 1.12rem; color: var(--muted); max-width: 46ch; margin: 0 0 28px; }
   .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -141,7 +144,9 @@ import { profil, projets, contacts } from "../data/cv.js";
 
   @media (max-width: 860px) {
     .hero-grid { grid-template-columns: 1fr; gap: 32px; }
-    .hero-card { order: -1; }
+    /* Texte (nom + pitch) d'abord, carte code ensuite */
+    .hero-text { order: -1; }
+    .card-code { font-size: 0.82rem; }
     .cards { grid-template-columns: 1fr; }
   }
 </style>

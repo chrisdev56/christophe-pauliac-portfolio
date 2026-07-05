@@ -8,7 +8,7 @@ export const profil = {
   experienceAnnees: 4,
   lieu: "Quéven, France",
   pitch:
-    "Je code par passion depuis le lycée : d'abord des antisèches et un Snake sur ma calculatrice, aujourd'hui des logiciels métier complets. Du contrôle métrologique en atelier au développement web, j'ai gardé le même réflexe : comprendre à fond, puis construire propre.",
+    "Je code par passion depuis le lycée : d'abord des antisèches et un Snake sur ma calculatrice, aujourd'hui des logiciels métier complets.",
   permis: "Permis B — véhicule personnel",
 };
 
