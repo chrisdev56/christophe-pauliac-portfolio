@@ -13,6 +13,10 @@ import { profil, projets, contacts } from "../data/cv.js";
           Salut, moi c'est <span class="hl">Christophe</span>.
         </h1>
         <p class="lede">{profil.pitch}</p>
+        <p class="note-ia">
+          <span class="note-ia-tag">IA</span>
+          {profil.noteIA}
+        </p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="/cv">Voir mon CV</a>
           <a class="btn btn-ghost" href={contacts.linkedin} target="_blank" rel="noopener"
@@ -90,7 +94,22 @@ import { profil, projets, contacts } from "../data/cv.js";
   .hero h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 800; margin: 0 0 12px; }
   .hero-tagline { font-size: clamp(1.15rem, 2.4vw, 1.5rem); font-weight: 600; color: var(--heading); margin: 0 0 22px; }
   .hl { color: var(--primary-text); }
-  .lede { font-size: 1.12rem; color: var(--muted); max-width: 46ch; margin: 0 0 28px; }
+  .lede { font-size: 1.12rem; color: var(--muted); max-width: 46ch; margin: 0 0 20px; }
+
+  /* Note IA : encart discret avec liseré orange */
+  .note-ia {
+    display: flex; align-items: flex-start; gap: 10px;
+    max-width: 48ch; margin: 0 0 28px; padding: 12px 14px;
+    font-size: 0.95rem; color: var(--text); line-height: 1.5;
+    background: color-mix(in srgb, var(--primary) 7%, transparent);
+    border-left: 3px solid var(--primary); border-radius: 8px;
+  }
+  .note-ia-tag {
+    flex-shrink: 0; font-family: var(--mono); font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.05em; color: #fff; background: var(--primary);
+    padding: 3px 8px; border-radius: 6px; margin-top: 1px;
+  }
+
   .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
 
   .btn {
