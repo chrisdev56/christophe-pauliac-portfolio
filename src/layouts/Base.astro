@@ -112,6 +112,14 @@ const path = Astro.url.pathname;
               </a>
             )
           }
+          {
+            contacts.codecrafting && (
+              <a class="footer-link" href={contacts.codecrafting} target="_blank" rel="noopener">
+                <img class="footer-ico footer-ico-img" src="/assets/codecrafting-icon.png" alt="" width="16" height="16" loading="lazy" />
+                <span class="footer-label">CodeCrafting</span>
+              </a>
+            )
+          }
         </div>
       </div>
       <p class="footer-copy wrap">© {new Date().getFullYear()} {profil.nom}</p>
@@ -265,6 +273,7 @@ const path = Astro.url.pathname;
       .footer-link:hover { border-color: var(--primary); color: var(--primary-text); }
       .footer-ico { flex-shrink: 0; color: var(--muted); transition: color 0.12s; }
       .footer-link:hover .footer-ico { color: var(--primary-text); }
+      .footer-ico-img { border-radius: 4px; object-fit: contain; }
       .footer-copy { margin: 22px auto 0; color: var(--muted); font-size: 0.82rem; }
 
       @media (max-width: 560px) {

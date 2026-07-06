@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-import { profil, projets, contacts } from "../data/cv.js";
+import { profil, projets, projetsPerso, contacts } from "../data/cv.js";
 ---
 
 <Base>
@@ -44,14 +44,13 @@ import { profil, projets, contacts } from "../data/cv.js";
     </div>
   </section>
 
-  <!-- PROJETS -->
+  <!-- AG2L -->
   <section class="wrap section">
     <header class="section-head">
-      <p class="eyebrow">Ce sur quoi je travaille</p>
-      <h2>Projets &amp; réalisations</h2>
+      <p class="eyebrow">Mon poste actuel</p>
+      <h2>AG2L</h2>
       <p class="section-sub">
-        Chez AG2L, je participe aux tests et développements de logiciels de gestion à
-        l'affaire, du desktop C# à l'application web Java / React.
+        Logiciels de gestion à l'affaire, du desktop C# à l'application web Java / React.
       </p>
     </header>
 
@@ -68,6 +67,40 @@ import { profil, projets, contacts } from "../data/cv.js";
             </ul>
           </article>
         ))
+      }
+    </div>
+  </section>
+
+  <!-- PERSO -->
+  <section class="wrap section">
+    <header class="section-head">
+      <p class="eyebrow">En dehors du travail</p>
+      <h2>Perso</h2>
+      <p class="section-sub">
+        Mes projets à moi, développés sur mon temps libre.
+      </p>
+    </header>
+
+    <div class="cards">
+      {
+        projetsPerso.map((p) => {
+          const Tag = p.lien ? "a" : "article";
+          const linkProps = p.lien
+            ? { href: p.lien, target: "_blank", rel: "noopener" }
+            : {};
+          return (
+            <Tag class:list={["card", { "card-link": p.lien }]} {...linkProps}>
+              <h3 class="card-title">{p.titre}</h3>
+              <p class="card-text">{p.resume}</p>
+              <ul class="tags">
+                {p.stack.map((s) => (
+                  <li class="tag">{s}</li>
+                ))}
+              </ul>
+              {p.lien && <span class="card-cta">Voir le site →</span>}
+            </Tag>
+          );
+        })
       }
     </div>
   </section>
@@ -152,7 +185,22 @@ import { profil, projets, contacts } from "../data/cv.js";
     padding: 24px; box-shadow: var(--shadow-sm); transition: transform 0.14s, box-shadow 0.14s, border-color 0.14s;
   }
   .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); }
-  .card-title { margin: 0 0 8px; font-size: 1.18rem; }
+  /* Carte cliquable (projet avec lien) */
+  .card-link { display: block; text-decoration: none; color: inherit; }
+  .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .card-badge {
+    font-family: var(--mono); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--accent-text);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    padding: 2px 8px; border-radius: 999px;
+  }
+  .card-cta {
+    display: inline-block; margin-top: 14px; font-weight: 700; font-size: 0.9rem;
+    color: var(--primary-text);
+  }
+  .card-link:hover .card-cta { text-decoration: underline; }
+  .card-title { margin: 0; font-size: 1.18rem; }
   .card-text { margin: 0 0 16px; color: var(--muted); }
   .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 7px; margin: 0; padding: 0; }
   .tag {

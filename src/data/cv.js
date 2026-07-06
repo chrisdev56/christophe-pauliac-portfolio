@@ -24,10 +24,22 @@ export const contacts = {
   emailDomain: "gmail.com",
   linkedin: "https://www.linkedin.com/in/christophe-pauliac-dl/",
   github: "https://github.com/chrisdev56",
+  codecrafting: "https://codecrafting.fr",
   cvPdf: "https://1drv.ms/b/s!AqQIysPytXrDaj514iPQ1RDSe-A",
 };
 
-// Projets professionnels (cartes de la page d'accueil)
+// Projets perso (section "Perso"). `lien` rend la carte cliquable.
+export const projetsPerso = [
+  {
+    titre: "CodeCrafting",
+    resume:
+      "Mon projet perso : des logiciels décidés par les votes des utilisateurs, plus du développement web sur mesure. Site, catalogue et espace client, du front au back.",
+    stack: ["Cloudflare", "Supabase", "JavaScript"],
+    lien: "https://codecrafting.fr",
+  },
+];
+
+// Projets AG2L (section "AG2L").
 export const projets = [
   {
     titre: "Industria.Net",
