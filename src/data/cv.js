@@ -23,7 +23,7 @@ export const contacts = {
   emailUser: "christophe.pauliac",
   emailDomain: "gmail.com",
   linkedin: "https://www.linkedin.com/in/christophe-pauliac-dl/",
-  github: "", // à compléter si profil présentable
+  github: "https://github.com/chrisdev56",
   cvPdf: "https://1drv.ms/b/s!AqQIysPytXrDaj514iPQ1RDSe-A",
 };
 
