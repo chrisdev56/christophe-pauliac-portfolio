@@ -217,9 +217,23 @@ import {
   @media print {
     @page { size: A4; margin: 11mm 12mm; }
 
+    /* Forcer l'impression des couleurs (ronds timeline, chips, accents) */
+    :global(*) {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
     :global(body) { background: #fff !important; color: #000; font-size: 9.5pt; line-height: 1.4; }
     /* Masquer le header, le footer et le bouton */
     :global(.site-header), :global(.site-footer), .btn-dl { display: none !important; }
+
+    /* Ronds de la timeline : garantis visibles à l'impression (fond + bordure de secours) */
+    .tl-item::before {
+      background: var(--primary) !important;
+      border: 2px solid var(--primary) !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
 
     .cv { padding-top: 0; }
     .cv-head { border-color: #ccc; padding-bottom: 10px; margin-bottom: 14px; }
