@@ -9,6 +9,7 @@ import {
   interets,
   experiences,
   formations,
+  anneesExperience,
 } from "../data/cv.js";
 ---
 
@@ -18,7 +19,7 @@ import {
       <div>
         <p class="eyebrow">Curriculum vitæ</p>
         <h1>{profil.nom}</h1>
-        <p class="cv-role">{profil.titre} · {profil.experienceAnnees} ans d'expérience</p>
+        <p class="cv-role">{profil.titre} · {anneesExperience} ans d'expérience</p>
         <p class="cv-meta">{profil.lieu} · {profil.permis}</p>
         <!-- Contacts : affichés uniquement à l'impression pour un CV complet -->
         <p class="cv-contacts-print" data-user={contacts.emailUser} data-domain={contacts.emailDomain}>

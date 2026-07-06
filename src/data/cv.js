@@ -5,7 +5,8 @@
 export const profil = {
   nom: "Christophe Pauliac",
   titre: "Développeur & testeur logiciel",
-  experienceAnnees: 4,
+  // Année de début en développement (entrée chez AG2L). L'ancienneté est calculée automatiquement.
+  debutDev: 2018,
   lieu: "Quéven, France",
   pitch:
     "Je code par passion depuis le lycée : d'abord des antisèches et un Snake sur ma calculatrice, aujourd'hui des logiciels métier complets.",
@@ -13,6 +14,9 @@ export const profil = {
     "Aujourd'hui, l'IA fait partie de mon quotidien de développeur. Un outil que je manie tous les jours pour aller plus vite, mais c'est moi qui décide et qui vérifie.",
   permis: "Permis B, véhicule personnel",
 };
+
+// Ancienneté en développement, calculée à la génération de la page.
+export const anneesExperience = new Date().getFullYear() - profil.debutDev;
 
 export const contacts = {
   // email obfusqué côté rendu (voir Layout), jamais en clair dans le HTML source
