@@ -20,10 +20,16 @@ import {
         <h1>{profil.nom}</h1>
         <p class="cv-role">{profil.titre} · {profil.experienceAnnees} ans d'expérience</p>
         <p class="cv-meta">{profil.lieu} · {profil.permis}</p>
+        <!-- Contacts : affichés uniquement à l'impression pour un CV complet -->
+        <p class="cv-contacts-print" data-user={contacts.emailUser} data-domain={contacts.emailDomain}>
+          <span class="print-email"></span>
+          <span> · </span>
+          <span>{contacts.linkedin.replace("https://www.", "")}</span>
+        </p>
       </div>
-      <a class="btn-dl" href={contacts.cvPdf} target="_blank" rel="noopener">
+      <button class="btn-dl" id="print-cv" type="button">
         ↓ Télécharger le CV (PDF)
-      </a>
+      </button>
     </header>
 
     <div class="cv-grid">
@@ -146,7 +152,11 @@ import {
     padding: 11px 20px; border-radius: 999px; font-weight: 700; text-decoration: none;
     background: var(--primary); color: #fff; box-shadow: var(--shadow); transition: background 0.12s, transform 0.12s;
   }
+  .btn-dl { border: none; cursor: pointer; font-family: inherit; font-size: 0.98rem; }
   .btn-dl:hover { background: var(--primary-2); transform: translateY(-1px); }
+
+  /* Contacts visibles seulement à l'impression */
+  .cv-contacts-print { display: none; }
 
   .cv-grid { display: grid; grid-template-columns: 320px 1fr; gap: 40px; align-items: start; }
 
@@ -199,4 +209,64 @@ import {
     .tl-item:not(:last-child) { padding-left: 20px; }
     .formations li { grid-template-columns: 54px 1fr; }
   }
+
+  /* ---- Impression / PDF : document A4 propre, sans chrome du site ---- */
+  @media print {
+    @page { size: A4; margin: 11mm 12mm; }
+
+    :global(body) { background: #fff !important; color: #000; font-size: 9.5pt; line-height: 1.4; }
+    /* Masquer le header, le footer et le bouton */
+    :global(.site-header), :global(.site-footer), .btn-dl { display: none !important; }
+
+    .cv { padding-top: 0; }
+    .cv-head { border-color: #ccc; padding-bottom: 10px; margin-bottom: 14px; }
+    .cv-head h1 { font-size: 19pt; color: #000; margin-bottom: 4px; }
+    .cv-role { color: #000; font-size: 10.5pt; }
+    .cv-meta { color: #333; font-size: 9pt; margin-top: 2px; }
+    .eyebrow { font-size: 8pt; margin-bottom: 6px; }
+
+    /* Contacts visibles dans le PDF */
+    .cv-contacts-print { display: block; margin: 6px 0 0; font-size: 9pt; color: #333; }
+
+    /* Deux colonnes conservées, resserrées pour tenir sur 2 pages */
+    .cv-grid { grid-template-columns: 220px 1fr; gap: 20px; }
+
+    .block { margin-bottom: 12px; }
+    .block-title { color: #000; border-color: var(--primary); font-size: 11pt; margin-bottom: 8px; padding-bottom: 4px; }
+    .skill-h { color: #444; font-size: 8pt; margin-bottom: 4px; }
+    .skill-group { margin-bottom: 8px; }
+
+    .chip {
+      background: #fff !important; color: #000 !important; border: 1px solid #bbb !important;
+      font-size: 7.5pt; padding: 1px 6px;
+    }
+    .chips { gap: 4px; }
+    .tag { color: #000; }
+    .plain li { margin-bottom: 2px; }
+
+    /* Timeline resserrée */
+    .tl-item { padding-bottom: 12px; grid-template-columns: 110px 1fr; gap: 12px; }
+    .tl-role { font-size: 10pt; margin-bottom: 4px; }
+    .tl-when, .f-year { color: var(--primary-2); font-size: 8.5pt; }
+    .tl-role, .f-label, .cv-role, .plain { color: #000; }
+    .formations li { padding: 6px 0; }
+
+    /* Éviter les coupures moches */
+    .tl-item, .formations li, .skill-group { break-inside: avoid; }
+    .block-title { break-after: avoid; }
+
+    a { color: #000 !important; text-decoration: none; }
+  }
 </style>
+
+<script>
+  // Bouton "Télécharger le CV" → lance l'impression (l'utilisateur enregistre en PDF)
+  document.getElementById("print-cv")?.addEventListener("click", () => window.print());
+
+  // Email assemblé en JS (invisible des bots), pour le bloc contacts du PDF
+  const c = document.querySelector(".cv-contacts-print");
+  const span = document.querySelector(".print-email");
+  if (c && span) {
+    span.textContent = `${c.getAttribute("data-user")}@${c.getAttribute("data-domain")}`;
+  }
+</script>
