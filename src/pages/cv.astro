@@ -57,7 +57,7 @@ import {
             {
               langues.map((l) => (
                 <li>
-                  <strong>{l.langue}</strong> — {l.niveau}
+                  <strong>{l.langue}</strong>&nbsp;: {l.niveau}
                 </li>
               ))
             }
@@ -180,7 +180,7 @@ import {
   .plain li { margin-bottom: 5px; }
   .plain li::marker { color: var(--primary); }
 
-  /* Timeline expériences — layout robuste, pas de superposition */
+  /* Timeline expériences : layout robuste, pas de superposition */
   .timeline { list-style: none; margin: 0; padding: 0; }
   .tl-item {
     display: grid; grid-template-columns: 130px 1fr; gap: 18px;

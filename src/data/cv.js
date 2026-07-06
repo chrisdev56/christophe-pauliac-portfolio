@@ -1,4 +1,4 @@
-// Contenu du portfolio — source unique de vérité.
+// Contenu du portfolio, source unique de vérité.
 // Corrigé depuis l'ancien site : "Atouts" (ex "Atous"), pas d'âge/tél en clair,
 // langues en niveaux CECRL plutôt qu'en barres arbitraires.
 
@@ -10,8 +10,8 @@ export const profil = {
   pitch:
     "Je code par passion depuis le lycée : d'abord des antisèches et un Snake sur ma calculatrice, aujourd'hui des logiciels métier complets.",
   noteIA:
-    "Aujourd'hui, je développe au quotidien avec l'IA : elle accélère la génération, la revue et les tests. Je garde la main sur les décisions d'architecture et la qualité.",
-  permis: "Permis B — véhicule personnel",
+    "Aujourd'hui, l'IA fait partie de mon quotidien de développeur. Un outil que je manie tous les jours pour aller plus vite, mais c'est moi qui décide et qui vérifie.",
+  permis: "Permis B, véhicule personnel",
 };
 
 export const contacts = {
@@ -64,7 +64,7 @@ export const competences = [
 
 export const langues = [
   { langue: "Français", niveau: "Langue maternelle" },
-  { langue: "Anglais", niveau: "Technique — B1" },
+  { langue: "Anglais", niveau: "Technique (B1)" },
 ];
 
 export const atouts = ["Joie de vivre", "Organisé", "Autonome"];
@@ -96,7 +96,7 @@ export const experiences = [
     ],
   },
   {
-    periode: "Mai – Juin 2018",
+    periode: "Mai - Juin 2018",
     poste: "Stage développeur logiciel",
     lieu: "",
     points: [
@@ -104,7 +104,7 @@ export const experiences = [
     ],
   },
   {
-    periode: "2015 – 2018",
+    periode: "2015 - 2018",
     poste: "Agent de recette",
     lieu: "",
     points: [
@@ -113,19 +113,19 @@ export const experiences = [
     ],
   },
   {
-    periode: "2009 – 2015",
-    poste: "Mécanicien maintenance aéronautique NTI2 — Atlantique 2",
+    periode: "2009 - 2015",
+    poste: "Mécanicien maintenance aéronautique NTI2, Atlantique 2",
     lieu: "",
     points: ["Inspection détaillée de l'aéronef et remise en état"],
   },
   {
-    periode: "2008 – 2009",
+    periode: "2008 - 2009",
     poste: "Opérateur sur piste d'aérodrome",
     lieu: "",
     points: ["Accueil des aéronefs en escale"],
   },
   {
-    periode: "Étés 2008 – 2009",
+    periode: "Étés 2008 - 2009",
     poste: "Tourneur sur commande numérique",
     lieu: "",
     points: [
@@ -136,7 +136,7 @@ export const experiences = [
 ];
 
 export const formations = [
-  { annee: "2022", intitule: "AZ-204 — Microsoft Certified: Azure Developer Associate" },
+  { annee: "2022", intitule: "AZ-204, Microsoft Certified: Azure Developer Associate" },
   { annee: "2018", intitule: "Titre professionnel Développeur de logiciel (niveau III)" },
   { annee: "2017", intitule: "VAE Mécanicien de maintenance aéronautique, option porteur (niveau IV)" },
   { annee: "2008", intitule: "BTS Industrialisation des produits mécaniques" },

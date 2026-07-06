@@ -3,8 +3,8 @@ import { profil, contacts } from "../data/cv.js";
 
 const { title, description } = Astro.props;
 const pageTitle = title
-  ? `${title} — ${profil.nom}`
-  : `${profil.nom} — ${profil.titre}`;
+  ? `${title} · ${profil.nom}`
+  : `${profil.nom} · ${profil.titre}`;
 const pageDesc =
   description ??
   `Portfolio de ${profil.nom}, ${profil.titre.toLowerCase()}. Parcours, compétences et projets.`;
