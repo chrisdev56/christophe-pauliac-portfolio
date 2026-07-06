@@ -10,7 +10,7 @@ export const profil = {
   pitch:
     "Je code par passion depuis le lycée : d'abord des antisèches et un Snake sur ma calculatrice, aujourd'hui des logiciels métier complets.",
   noteIA:
-    "Aujourd'hui, je développe au quotidien avec l'IA comme copilote : elle accélère la génération, la revue et les tests. Je garde la main sur les décisions d'architecture et la qualité.",
+    "Aujourd'hui, je développe au quotidien avec l'IA : elle accélère la génération, la revue et les tests. Je garde la main sur les décisions d'architecture et la qualité.",
   permis: "Permis B — véhicule personnel",
 };
 
