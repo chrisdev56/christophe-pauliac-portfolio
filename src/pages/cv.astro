@@ -189,9 +189,13 @@ import {
   }
   /* Ligne verticale : sur tous sauf le dernier (pour ne pas pendre dans le vide) */
   .tl-item:not(:last-child) { border-left: 2px solid var(--border); }
-  /* Point orange : sur TOUS les items, y compris le dernier */
+  /* Point orange : sur TOUS les items, centré sur la ligne verticale.
+     Boîte = 12px (point) + 3px de bordure de chaque côté = 18px de large.
+     Pour centrer le milieu de la boîte (9px) sur la ligne (x = 0) → left: -10px
+     (la ligne fait 2px, son axe est à x = 1px, donc 1 - 9 = -8; on ajuste box-sizing). */
   .tl-item::before {
-    content: ""; position: absolute; left: -7px; top: 4px; width: 12px; height: 12px;
+    content: ""; position: absolute; left: -8px; top: 4px;
+    width: 12px; height: 12px; box-sizing: content-box;
     border-radius: 50%; background: var(--primary); border: 3px solid var(--bg);
   }
   .tl-when { font-family: var(--mono); font-size: 0.82rem; color: var(--primary-text); font-weight: 600; padding-top: 2px; }
