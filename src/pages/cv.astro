@@ -185,9 +185,12 @@ import {
   .tl-item {
     display: grid; grid-template-columns: 130px 1fr; gap: 18px;
     padding: 0 0 24px 0; position: relative;
+    margin-left: 6px; padding-left: 22px;
   }
-  .tl-item:not(:last-child) { border-left: 2px solid var(--border); margin-left: 6px; padding-left: 22px; }
-  .tl-item:not(:last-child)::before {
+  /* Ligne verticale : sur tous sauf le dernier (pour ne pas pendre dans le vide) */
+  .tl-item:not(:last-child) { border-left: 2px solid var(--border); }
+  /* Point orange : sur TOUS les items, y compris le dernier */
+  .tl-item::before {
     content: ""; position: absolute; left: -7px; top: 4px; width: 12px; height: 12px;
     border-radius: 50%; background: var(--primary); border: 3px solid var(--bg);
   }
